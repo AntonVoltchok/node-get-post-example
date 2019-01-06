@@ -12,13 +12,11 @@ const getOperationResult = ({ operation, left, right }) => {
     case 'remainder':
       return left % right;
     default:
-      return console.warn('MISSING / WRONG OPERATION PASSED IN');
+      return console.warn('UNIDENTIFIED / NO OPERATION PASSED IN');
   }
 };
 
 const checkForUnsafeNumbers = (result) => {
-  // Not necessarily an error with the api, but I noticed sometimes on
-  // multiplication and addition the result is too large and isn't a safe number
   const maxSafeVal = 9007199254740992;
   if (result > maxSafeVal || result < -maxSafeVal) console.warn('WARNING RESULT IS NOT A SAFE NUMBER');
 };
