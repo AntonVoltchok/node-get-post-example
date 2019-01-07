@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "pretest": "eslint --ignore-path .gitignore .",
-    "test": "jest",
+    "pretest": "eslint --ignore-path .gitignore . --fix",
+    "test": "jest --coverage",
     "start": "node server.js"
   },
   "author": "Anton Voltchok",

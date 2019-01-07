@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const { logPostStatus } = require('./utils/pureFunctions');
 
-const { postToCheckAnswer, getNewTaskAndAnswer } = require('./http');
+const { postToCheckAnswer, getNewTaskAndAnswer } = require('./http/httpMethods');
 
 const app = express();
 
@@ -16,13 +16,21 @@ const server = app.listen(port, () => {
   console.log('App listening on port', server.address().port);
 });
 
-const startNewTaskAndValidate = () => getNewTaskAndAnswer((answerCallback) => {
-  console.log('... ... ... ... checking answer |');
-  postToCheckAnswer(
-    err => logPostStatus(err.status),
-    res => logPostStatus(res.status),
-    answerCallback,
-  );
-});
+/*
+Please see the readme for potential issue with the API, to summarize multiplication
+and addition can produce unsafe numbers, in which case if we add more to the result
+prior to a POST, it will always return a 200 when the status code should be 400
+*/
 
-setInterval(startNewTaskAndValidate, 6500);
+const startNewTaskAndValidate = () => {
+  getNewTaskAndAnswer((answerCallback) => {
+    console.log('... ... ... ... checking answer |');
+    postToCheckAnswer(
+      err => logPostStatus(err.status),
+      res => logPostStatus(res.status),
+      answerCallback,
+    );
+  });
+};
+
+setInterval(startNewTaskAndValidate, 5000);

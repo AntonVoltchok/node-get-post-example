@@ -1,4 +1,4 @@
-const { getOperationResult, checkForUnsafeNumbers } = require('../utils/pureFunctions');
+const { getOperationResult, checkForUnsafeNumbers, logPostStatus } = require('../pureFunctions');
 
 test('testing getOperationResult for all operations', () => {
   expect(getOperationResult({ operation: 'addition', left: 5, right: 10 })).toBe(15);
@@ -21,4 +21,18 @@ test('testing checkForUnsafeNumbers for positive and negative unsafe #s', () => 
   expect(console.warn).toHaveBeenCalledWith('WARNING RESULT IS NOT A SAFE NUMBER');
   checkForUnsafeNumbers(-unsafeNumber);
   expect(console.warn).toHaveBeenCalledWith('WARNING RESULT IS NOT A SAFE NUMBER');
+});
+
+test('testing logPostStatus for 200, 400, 500, and unknown status', () => {
+  jest.spyOn(global.console, 'log');
+  logPostStatus(200);
+  expect(console.log).toHaveBeenCalledWith('status 200 - success: the answer is correct');
+  logPostStatus(400);
+  expect(console.log).toHaveBeenCalledWith('status 400 - wrong value/no ID specified/value is invalid');
+  logPostStatus(500);
+  expect(console.log).toHaveBeenCalledWith('status 500 - ID cannot be found');
+
+  jest.spyOn(global.console, 'warn');
+  logPostStatus(9999);
+  expect(console.warn).toHaveBeenCalledWith('status is not 200/400/500, received: 9999');
 });

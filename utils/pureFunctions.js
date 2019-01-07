@@ -30,7 +30,7 @@ const logPostStatus = (status) => {
     case 500:
       return console.log(`status ${status} - ID cannot be found`);
     default:
-      return console.warn('status is not 200/400/500', status);
+      return console.warn(`status is not 200/400/500, received: ${status}`);
   }
 };
 

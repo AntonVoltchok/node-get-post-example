@@ -1,6 +1,6 @@
 const request = require('superagent');
 
-const { getOperationResult, checkForUnsafeNumbers } = require('./utils/pureFunctions');
+const { getOperationResult, checkForUnsafeNumbers } = require('../utils/pureFunctions');
 
 const getNewTaskAndAnswer = (cb) => {
   console.log('| NEW TASK -------------------');
