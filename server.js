@@ -22,7 +22,7 @@ and addition can produce unsafe numbers, in which case if we add more to the res
 prior to a POST, it will always return a 200 when the status code should be 400
 */
 
-const startNewTaskAndValidate = () => {
+(function startNewTaskAndValidate() {
   getNewTaskAndAnswer((answerCallback) => {
     console.log('... ... ... ... checking answer |');
     postToCheckAnswer(
@@ -31,6 +31,5 @@ const startNewTaskAndValidate = () => {
       answerCallback,
     );
   });
-};
-
-setInterval(startNewTaskAndValidate, 5000);
+  setTimeout(startNewTaskAndValidate, 6000);
+}());
